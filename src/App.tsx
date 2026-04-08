@@ -15,10 +15,10 @@ export default function App() {
   const [isAppLoading, setIsAppLoading] = useState(true);
 
   useEffect(() => {
-    // Show splash screen for at least 1.5 seconds
+    // Show splash screen for at least 4 seconds
     const timer = setTimeout(() => {
       setIsAppLoading(false);
-    }, 1500);
+    }, 4000);
 
     return () => clearTimeout(timer);
   }, []);
