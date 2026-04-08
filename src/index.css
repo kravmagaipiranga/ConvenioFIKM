@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Nunito", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Bebas Neue", ui-sans-serif, system-ui, sans-serif;
+  --color-fikm-blue: #00008E;
+  --color-fikm-gray-light: #F4F4F4;
+  --color-fikm-gray-medium: #CCCCCC;
+}
+
+body {
+  font-family: "Nunito", sans-serif;
+  background-color: #F4F4F4;
+}
+
+h1, h2, h3, h4, h5, h6, .font-display {
+  font-family: "Bebas Neue", sans-serif;
+  letter-spacing: 0.05em;
+}

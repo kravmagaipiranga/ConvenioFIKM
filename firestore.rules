@@ -1,0 +1,65 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ===============================================================
+    // Helper Functions
+    // ===============================================================
+    
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isAdmin() {
+      // For this app, any authenticated user is considered an admin for managing convenios.
+      // In a production scenario, you would check a custom claim or a users collection.
+      return isAuthenticated();
+    }
+
+    function hasRequiredFields(fields) {
+      return request.resource.data.keys().hasAll(fields);
+    }
+    
+    function isValidConvenio(data) {
+      return data.companyName is string && data.companyName.size() > 0 && data.companyName.size() < 150 &&
+             data.category is string && data.category.size() > 0 && data.category.size() < 100 &&
+             data.advantageType is string && data.advantageType.size() > 0 && data.advantageType.size() < 100 &&
+             data.advantageTitle is string && data.advantageTitle.size() > 0 && data.advantageTitle.size() < 200 &&
+             data.description is string && data.description.size() > 0 && data.description.size() < 5000 &&
+             data.instructions is string && data.instructions.size() > 0 && data.instructions.size() < 5000 &&
+             data.active is bool &&
+             data.highlight is bool &&
+             data.createdAt is timestamp &&
+             data.updatedAt is timestamp &&
+             (!('neighborhood' in data) || (data.neighborhood is string && data.neighborhood.size() < 150)) &&
+             (!('city' in data) || (data.city is string && data.city.size() < 150)) &&
+             (!('state' in data) || (data.state is string && data.state.size() < 150)) &&
+             (!('whatsapp' in data) || (data.whatsapp is string && data.whatsapp.size() < 50)) &&
+             (!('website' in data) || (data.website is string && data.website.size() < 500)) &&
+             (!('email' in data) || (data.email is string && data.email.size() < 150)) &&
+             (!('phone' in data) || (data.phone is string && data.phone.size() < 50)) &&
+             (!('imageUrl' in data) || (data.imageUrl is string && data.imageUrl.size() < 1000));
+    }
+
+    // ===============================================================
+    // Rules
+    // ===============================================================
+
+    match /convenios/{convenioId} {
+      // Anyone can read active convenios. Admins can read all convenios.
+      allow read: if (resource == null || resource.data.active == true) || isAdmin();
+      
+      // Only admins can create, update, or delete convenios.
+      allow create: if isAdmin() && 
+                    hasRequiredFields(['companyName', 'category', 'advantageType', 'advantageTitle', 'description', 'instructions', 'active', 'highlight', 'createdAt', 'updatedAt']) &&
+                    isValidConvenio(request.resource.data);
+                    
+      allow update: if isAdmin() && 
+                    isValidConvenio(request.resource.data) &&
+                    request.resource.data.createdAt == resource.data.createdAt; // Immutable createdAt
+                    
+      allow delete: if isAdmin();
+    }
+  }
+}

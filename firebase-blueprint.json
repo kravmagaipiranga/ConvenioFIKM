@@ -1,0 +1,105 @@
+{
+  "entities": {
+    "Convenio": {
+      "title": "Convenio",
+      "description": "A partnership agreement offering benefits to FIKM members.",
+      "type": "object",
+      "properties": {
+        "companyName": {
+          "type": "string",
+          "description": "Name of the company or service provider"
+        },
+        "category": {
+          "type": "string",
+          "description": "Category of the service (e.g., Saúde, Alimentação)"
+        },
+        "advantageType": {
+          "type": "string",
+          "description": "Type of advantage (e.g., Desconto percentual, Brinde)"
+        },
+        "advantageTitle": {
+          "type": "string",
+          "description": "Short title of the advantage"
+        },
+        "description": {
+          "type": "string",
+          "description": "Full description of the partnership"
+        },
+        "instructions": {
+          "type": "string",
+          "description": "Instructions on how to use the benefit"
+        },
+        "neighborhood": {
+          "type": "string",
+          "description": "Neighborhood"
+        },
+        "city": {
+          "type": "string",
+          "description": "City"
+        },
+        "state": {
+          "type": "string",
+          "description": "State"
+        },
+        "whatsapp": {
+          "type": "string",
+          "description": "WhatsApp contact number"
+        },
+        "website": {
+          "type": "string",
+          "description": "Website URL"
+        },
+        "email": {
+          "type": "string",
+          "description": "Contact email"
+        },
+        "phone": {
+          "type": "string",
+          "description": "Contact phone number"
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "URL of the uploaded image"
+        },
+        "active": {
+          "type": "boolean",
+          "description": "Whether the convenio is currently active and visible"
+        },
+        "highlight": {
+          "type": "boolean",
+          "description": "Whether the convenio is highlighted (appears first)"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Creation timestamp"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last update timestamp"
+        }
+      },
+      "required": [
+        "companyName",
+        "category",
+        "advantageType",
+        "advantageTitle",
+        "description",
+        "instructions",
+        "active",
+        "highlight",
+        "createdAt",
+        "updatedAt"
+      ]
+    }
+  },
+  "firestore": {
+    "/convenios/{convenioId}": {
+      "schema": {
+        "$ref": "#/entities/Convenio"
+      },
+      "description": "Collection of all convenios"
+    }
+  }
+}
