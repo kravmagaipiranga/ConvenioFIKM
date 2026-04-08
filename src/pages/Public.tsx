@@ -97,6 +97,15 @@ export function Public() {
     );
   };
 
+  const handleCategoryClick = (category: string) => {
+    setSelectedCategories([category]);
+    setCurrentPage(1);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (selectedConvenio) {
+      setSelectedConvenio(null);
+    }
+  };
+
   const handleClearAll = () => {
     setSelectedCategories([]);
     setSearchTerm('');
@@ -232,7 +241,7 @@ export function Public() {
                         </h2>
                         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                           {destacados.map((convenio) => (
-                            <ConvenioCard key={convenio.id} convenio={convenio} onClick={setSelectedConvenio} />
+                            <ConvenioCard key={convenio.id} convenio={convenio} onClick={setSelectedConvenio} onCategoryClick={handleCategoryClick} />
                           ))}
                         </div>
                       </div>
@@ -248,7 +257,7 @@ export function Public() {
                         )}
                         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                           {normais.map((convenio) => (
-                            <ConvenioCard key={convenio.id} convenio={convenio} onClick={setSelectedConvenio} />
+                            <ConvenioCard key={convenio.id} convenio={convenio} onClick={setSelectedConvenio} onCategoryClick={handleCategoryClick} />
                           ))}
                         </div>
                       </div>
@@ -301,9 +310,12 @@ export function Public() {
               
               <div className="p-6 sm:p-8">
                 <div className="flex items-center gap-2 mb-2">
-                  <span className="bg-fikm-blue/10 text-fikm-blue px-2.5 py-0.5 rounded text-xs font-bold">
+                  <button 
+                    onClick={() => handleCategoryClick(selectedConvenio.category)}
+                    className="bg-fikm-blue/10 hover:bg-fikm-blue/20 text-fikm-blue px-2.5 py-0.5 rounded text-xs font-bold transition-colors cursor-pointer"
+                  >
                     {selectedConvenio.category}
-                  </span>
+                  </button>
                   <span className="bg-gray-100 text-gray-600 px-2.5 py-0.5 rounded text-xs font-bold">
                     {selectedConvenio.advantageType}
                   </span>

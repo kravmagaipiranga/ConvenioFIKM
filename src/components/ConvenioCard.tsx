@@ -5,9 +5,10 @@ import { MapPin, Tag, Gift, MessageCircle, Phone, Share2 } from 'lucide-react';
 interface ConvenioCardProps {
   convenio: Convenio;
   onClick: (convenio: Convenio) => void;
+  onCategoryClick?: (category: string) => void;
 }
 
-export function ConvenioCard({ convenio, onClick }: ConvenioCardProps) {
+export function ConvenioCard({ convenio, onClick, onCategoryClick }: ConvenioCardProps) {
   const whatsappMessage = encodeURIComponent('Olá! Sou aluno da FIKM e gostaria de saber mais sobre o convênio.');
 
   const handleShare = async (e: React.MouseEvent) => {
@@ -52,9 +53,15 @@ export function ConvenioCard({ convenio, onClick }: ConvenioCardProps) {
             <span>⭐</span> DESTAQUE
           </div>
         )}
-        <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm text-fikm-blue text-xs font-bold px-2 py-1 rounded shadow-sm">
+        <button 
+          onClick={(e) => {
+            e.stopPropagation();
+            if (onCategoryClick) onCategoryClick(convenio.category);
+          }}
+          className="absolute top-3 left-3 bg-white/90 hover:bg-white backdrop-blur-sm text-fikm-blue text-xs font-bold px-2 py-1 rounded shadow-sm transition-colors cursor-pointer"
+        >
           {convenio.category}
-        </div>
+        </button>
       </div>
       
       <div className="p-5 flex flex-col flex-grow">
