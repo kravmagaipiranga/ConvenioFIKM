@@ -749,26 +749,24 @@ export function Admin() {
 
       {/* Modal Form */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 overflow-y-auto">
-          <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-            <div className="fixed inset-0 transition-opacity" aria-hidden="true" onClick={() => !saving && setIsModalOpen(false)}>
-              <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
-            </div>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
+          <div 
+            className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity" 
+            onClick={() => !saving && setIsModalOpen(false)}
+          ></div>
 
-            <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+          <div className="relative bg-white rounded-xl shadow-2xl w-full max-w-3xl flex flex-col max-h-[90vh] overflow-hidden">
+            <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4 overflow-y-auto">
+              <div className="flex justify-between items-center mb-5">
+                <h3 className="text-lg leading-6 font-medium text-gray-900">
+                  {editingId ? 'Editar Convênio' : 'Novo Convênio'}
+                </h3>
+                <button onClick={() => !saving && setIsModalOpen(false)} className="text-gray-400 hover:text-gray-500">
+                  <X className="w-6 h-6" />
+                </button>
+              </div>
 
-            <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-3xl sm:w-full">
-              <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                <div className="flex justify-between items-center mb-5">
-                  <h3 className="text-lg leading-6 font-medium text-gray-900">
-                    {editingId ? 'Editar Convênio' : 'Novo Convênio'}
-                  </h3>
-                  <button onClick={() => !saving && setIsModalOpen(false)} className="text-gray-400 hover:text-gray-500">
-                    <X className="w-6 h-6" />
-                  </button>
-                </div>
-
-                <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     {/* Basic Info */}
                     <div className="sm:col-span-2">
@@ -892,7 +890,6 @@ export function Admin() {
               </div>
             </div>
           </div>
-        </div>
       )}
 
       {/* User Modal */}
