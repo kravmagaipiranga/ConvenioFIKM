@@ -4,10 +4,22 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Convênios FIKM</title>
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#00008e" />
+    <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/kravmagaipiranga/ConvenioFIKM/999afde1fea9df6f1c039c9b551bca85b2394a7e/src/BLUE2_ICON.png">
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch(err => {
+            console.log('SW registration failed: ', err);
+          });
+        });
+      }
+    </script>
   </body>
 </html>
 

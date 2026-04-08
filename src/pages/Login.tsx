@@ -91,9 +91,12 @@ export function Login() {
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="flex justify-center">
-          <div className="w-16 h-16 bg-fikm-blue rounded-lg flex items-center justify-center text-white font-display text-4xl shadow-lg">
-            F
-          </div>
+          <img 
+            src="https://raw.githubusercontent.com/kravmagaipiranga/ConvenioFIKM/999afde1fea9df6f1c039c9b551bca85b2394a7e/src/BLUE2_ICON.png" 
+            alt="FIKM Logo" 
+            className="w-16 h-16 object-contain drop-shadow-lg"
+            referrerPolicy="no-referrer"
+          />
         </div>
         <h2 className="mt-6 text-center text-3xl font-display text-gray-900">
           Convênios FIKM

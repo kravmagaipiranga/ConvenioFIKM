@@ -1,19 +1,24 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Download } from 'lucide-react';
+import { usePWAInstall } from '../hooks/usePWAInstall';
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const { isInstallable, promptInstall } = usePWAInstall();
 
   return (
     <div className="min-h-screen flex flex-col">
       <header className="bg-white shadow-md sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-fikm-blue rounded flex items-center justify-center text-white font-display text-xl">
-              F
-            </div>
+            <img 
+              src="https://raw.githubusercontent.com/kravmagaipiranga/ConvenioFIKM/999afde1fea9df6f1c039c9b551bca85b2394a7e/src/BLUE2_ICON.png" 
+              alt="FIKM Logo" 
+              className="w-10 h-10 object-contain"
+              referrerPolicy="no-referrer"
+            />
             <div className="font-display text-2xl pt-1">
               <span className="text-gray-800">CONVÊNIOS</span> <span className="text-fikm-blue">FIKM</span>
             </div>
@@ -33,6 +38,15 @@ export function Layout({ children }: { children: React.ReactNode }) {
             >
               Área Restrita
             </Link>
+            {isInstallable && (
+              <button 
+                onClick={promptInstall}
+                className="flex items-center gap-2 bg-fikm-blue hover:bg-blue-800 text-white px-4 py-2 rounded-md text-sm font-semibold transition-colors"
+              >
+                <Download className="w-4 h-4" />
+                Instalar App
+              </button>
+            )}
           </nav>
 
           {/* Mobile Menu Button */}
@@ -61,6 +75,18 @@ export function Layout({ children }: { children: React.ReactNode }) {
             >
               Área Restrita
             </Link>
+            {isInstallable && (
+              <button 
+                onClick={() => {
+                  promptInstall();
+                  setIsMobileMenuOpen(false);
+                }}
+                className="w-full flex items-center gap-2 px-3 py-2 rounded-md text-base font-medium bg-fikm-blue text-white hover:bg-blue-800 mt-2"
+              >
+                <Download className="w-5 h-5" />
+                Instalar App
+              </button>
+            )}
           </div>
         )}
       </header>

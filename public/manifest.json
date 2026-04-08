@@ -1,0 +1,16 @@
+{
+  "name": "Convênios FIKM",
+  "short_name": "FIKM",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#00008e",
+  "theme_color": "#00008e",
+  "icons": [
+    {
+      "src": "https://raw.githubusercontent.com/kravmagaipiranga/ConvenioFIKM/999afde1fea9df6f1c039c9b551bca85b2394a7e/src/BLUE2_ICON.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
