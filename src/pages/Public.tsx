@@ -126,15 +126,15 @@ export function Public() {
   const phoneToCallModal = selectedConvenio?.phone || selectedConvenio?.whatsapp;
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="mb-6">
-            <h1 className="text-3xl font-display text-gray-900 mb-2">
-              Clube de Vantagens FIKM
+    <div className="bg-gray-50">
+      {/* Hero Section */}
+      <div className="bg-white border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+          <div className="mb-8 text-center sm:text-left">
+            <h1 className="text-3xl sm:text-4xl font-display text-gray-900 mb-3">
+              Convênios FIKM
             </h1>
-            <p className="text-gray-600">
+            <p className="text-gray-600 text-lg max-w-2xl">
               Descubra benefícios exclusivos para alunos da Federação Internacional de Krav Magá
             </p>
           </div>
@@ -147,11 +147,11 @@ export function Public() {
               placeholder="Buscar por empresa, categoria ou benefício..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-fikm-blue focus:border-transparent shadow-sm text-gray-900"
+              className="w-full pl-10 pr-4 py-3 sm:py-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-fikm-blue focus:border-transparent shadow-sm text-gray-900 text-base"
             />
           </div>
         </div>
-      </header>
+      </div>
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

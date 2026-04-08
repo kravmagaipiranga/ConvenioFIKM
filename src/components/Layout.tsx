@@ -1,13 +1,16 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { Menu, X } from 'lucide-react';
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
+
   return (
     <div className="min-h-screen flex flex-col">
       <header className="bg-white shadow-md sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-3">
-            {/* Placeholder for Logo */}
             <div className="w-10 h-10 bg-fikm-blue rounded flex items-center justify-center text-white font-display text-xl">
               F
             </div>
@@ -15,12 +18,51 @@ export function Layout({ children }: { children: React.ReactNode }) {
               <span className="text-gray-800">CONVÊNIOS</span> <span className="text-fikm-blue">FIKM</span>
             </div>
           </Link>
-          <nav>
-            <Link to="/admin" className="text-sm font-semibold text-gray-600 hover:text-fikm-blue transition-colors">
+          
+          {/* Desktop Nav */}
+          <nav className="hidden md:flex items-center gap-6">
+            <Link 
+              to="/" 
+              className={`text-sm font-semibold transition-colors ${location.pathname === '/' ? 'text-fikm-blue' : 'text-gray-600 hover:text-fikm-blue'}`}
+            >
+              Início
+            </Link>
+            <Link 
+              to="/admin" 
+              className={`text-sm font-semibold transition-colors ${location.pathname === '/admin' ? 'text-fikm-blue' : 'text-gray-600 hover:text-fikm-blue'}`}
+            >
               Área Restrita
             </Link>
           </nav>
+
+          {/* Mobile Menu Button */}
+          <button 
+            className="md:hidden p-2 text-gray-600 hover:text-fikm-blue"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
         </div>
+
+        {/* Mobile Nav */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden bg-white border-t border-gray-100 px-4 pt-2 pb-4 space-y-1 shadow-lg absolute w-full">
+            <Link 
+              to="/" 
+              onClick={() => setIsMobileMenuOpen(false)}
+              className={`block px-3 py-2 rounded-md text-base font-medium ${location.pathname === '/' ? 'bg-blue-50 text-fikm-blue' : 'text-gray-700 hover:bg-gray-50 hover:text-fikm-blue'}`}
+            >
+              Início
+            </Link>
+            <Link 
+              to="/admin" 
+              onClick={() => setIsMobileMenuOpen(false)}
+              className={`block px-3 py-2 rounded-md text-base font-medium ${location.pathname === '/admin' ? 'bg-blue-50 text-fikm-blue' : 'text-gray-700 hover:bg-gray-50 hover:text-fikm-blue'}`}
+            >
+              Área Restrita
+            </Link>
+          </div>
+        )}
       </header>
 
       <main className="flex-grow">

@@ -244,19 +244,19 @@ export function Admin() {
     <div className="min-h-screen bg-gray-50">
       <header className="bg-fikm-blue shadow">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <h1 className="text-white font-display text-2xl">Painel Administrativo</h1>
-          <div className="flex items-center gap-4">
+          <h1 className="text-white font-display text-xl sm:text-2xl truncate">Convênios FIKM - Admin</h1>
+          <div className="flex items-center gap-2 sm:gap-4">
             <button 
               onClick={() => navigate('/')}
-              className="text-blue-200 hover:text-white text-sm font-medium"
+              className="text-blue-200 hover:text-white text-xs sm:text-sm font-medium hidden sm:block"
             >
               Ver Site
             </button>
             <button 
               onClick={handleLogout}
-              className="flex items-center gap-2 text-white bg-blue-800 hover:bg-blue-900 px-3 py-1.5 rounded text-sm font-medium transition-colors"
+              className="flex items-center gap-1 sm:gap-2 text-white bg-blue-800 hover:bg-blue-900 px-2 sm:px-3 py-1.5 rounded text-xs sm:text-sm font-medium transition-colors"
             >
-              <LogOut className="w-4 h-4" /> Sair
+              <LogOut className="w-4 h-4" /> <span className="hidden sm:inline">Sair</span>
             </button>
           </div>
         </div>
@@ -270,18 +270,18 @@ export function Admin() {
               Total de {convenios.length} convênios cadastrados ({convenios.filter(c => c.active).length} ativos).
             </p>
           </div>
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2 w-full sm:w-auto">
             <button
               onClick={() => setIsUserModalOpen(true)}
-              className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded shadow-sm transition-colors"
+              className="flex-1 sm:flex-none flex items-center justify-center gap-2 bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded shadow-sm transition-colors text-sm"
             >
-              <UserPlus className="w-5 h-5" /> Adicionar Usuário
+              <UserPlus className="w-4 h-4 sm:w-5 sm:h-5" /> <span className="whitespace-nowrap">Add Usuário</span>
             </button>
             <button
               onClick={() => handleOpenModal()}
-              className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded shadow-sm transition-colors"
+              className="flex-1 sm:flex-none flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded shadow-sm transition-colors text-sm"
             >
-              <Plus className="w-5 h-5" /> Novo Convênio
+              <Plus className="w-4 h-4 sm:w-5 sm:h-5" /> <span className="whitespace-nowrap">Novo Convênio</span>
             </button>
           </div>
         </div>
