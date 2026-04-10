@@ -298,11 +298,11 @@ export function Public() {
             
             <div className="overflow-y-auto p-0">
               {selectedConvenio.imageUrl && (
-                <div className="w-full h-64 sm:h-80 relative">
+                <div className="w-full relative bg-gray-50 flex items-center justify-center flex-shrink-0" style={{ aspectRatio: '1 / 1' }}>
                   <img 
                     src={selectedConvenio.imageUrl} 
                     alt={selectedConvenio.companyName} 
-                    className="w-full h-full object-cover"
+                    className={`w-full h-full ${selectedConvenio.imageFit === 'contain' ? 'object-contain p-4' : 'object-cover'}`}
                     referrerPolicy="no-referrer"
                   />
                 </div>
@@ -363,17 +363,8 @@ export function Public() {
                     </div>
                     
                     <div className="mt-6 flex flex-wrap gap-3">
-                      {phoneToCallModal && (
-                        <a 
-                          href={`tel:${phoneToCallModal.replace(/\D/g, '')}`}
-                          className="inline-flex items-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold py-2.5 px-5 rounded transition-colors"
-                        >
-                          <Phone className="w-5 h-5" />
-                          Ligar
-                        </a>
-                      )}
-
-                      {selectedConvenio.whatsapp && (
+                      {/* Primary Contact First */}
+                      {selectedConvenio.primaryContact === 'whatsapp' && selectedConvenio.whatsapp && (
                         <a 
                           href={`https://wa.me/${selectedConvenio.whatsapp.replace(/\D/g, '')}?text=${encodeURIComponent('Olá! Sou aluno da FIKM e gostaria de saber mais sobre o convênio.')}`}
                           target="_blank"
@@ -384,8 +375,53 @@ export function Public() {
                           WhatsApp
                         </a>
                       )}
+
+                      {selectedConvenio.primaryContact === 'phone' && phoneToCallModal && (
+                        <a 
+                          href={`tel:${phoneToCallModal.replace(/\D/g, '')}`}
+                          className="inline-flex items-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold py-2.5 px-5 rounded transition-colors"
+                        >
+                          <Phone className="w-5 h-5" />
+                          Ligar
+                        </a>
+                      )}
+
+                      {selectedConvenio.primaryContact === 'website' && selectedConvenio.website && (
+                        <a 
+                          href={selectedConvenio.website.startsWith('http') ? selectedConvenio.website : `https://${selectedConvenio.website}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold py-2.5 px-5 rounded transition-colors"
+                        >
+                          <ExternalLink className="w-5 h-5" />
+                          Acessar Site
+                        </a>
+                      )}
+
+                      {/* Secondary Contacts */}
+                      {selectedConvenio.primaryContact !== 'whatsapp' && selectedConvenio.whatsapp && (
+                        <a 
+                          href={`https://wa.me/${selectedConvenio.whatsapp.replace(/\D/g, '')}?text=${encodeURIComponent('Olá! Sou aluno da FIKM e gostaria de saber mais sobre o convênio.')}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold py-2.5 px-5 rounded transition-colors"
+                        >
+                          <MessageCircle className="w-5 h-5" />
+                          WhatsApp
+                        </a>
+                      )}
+
+                      {selectedConvenio.primaryContact !== 'phone' && phoneToCallModal && (
+                        <a 
+                          href={`tel:${phoneToCallModal.replace(/\D/g, '')}`}
+                          className="inline-flex items-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold py-2.5 px-5 rounded transition-colors"
+                        >
+                          <Phone className="w-5 h-5" />
+                          Ligar
+                        </a>
+                      )}
                       
-                      {selectedConvenio.website && (
+                      {selectedConvenio.primaryContact !== 'website' && selectedConvenio.website && (
                         <a 
                           href={selectedConvenio.website.startsWith('http') ? selectedConvenio.website : `https://${selectedConvenio.website}`}
                           target="_blank"

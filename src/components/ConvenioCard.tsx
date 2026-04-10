@@ -1,6 +1,6 @@
 import React from 'react';
 import { Convenio } from '../types';
-import { MapPin, Tag, Gift, MessageCircle, Phone, Share2 } from 'lucide-react';
+import { MapPin, Tag, Gift, MessageCircle, Phone, Share2, Globe } from 'lucide-react';
 
 interface ConvenioCardProps {
   convenio: Convenio;
@@ -35,12 +35,12 @@ export function ConvenioCard({ convenio, onClick, onCategoryClick }: ConvenioCar
 
   return (
     <div className="bg-white rounded-xl shadow-sm overflow-hidden flex flex-col border border-gray-100 hover:shadow-md transition-shadow h-full">
-      <div className="aspect-[4/3] w-full relative bg-gray-100">
+      <div className="w-full relative bg-gray-50 flex-shrink-0" style={{ aspectRatio: '1 / 1' }}>
         {convenio.imageUrl ? (
           <img 
             src={convenio.imageUrl} 
             alt={convenio.companyName} 
-            className="w-full h-full object-cover"
+            className={`w-full h-full ${convenio.imageFit === 'contain' ? 'object-contain p-4' : 'object-cover'}`}
             referrerPolicy="no-referrer"
           />
         ) : (
@@ -91,7 +91,7 @@ export function ConvenioCard({ convenio, onClick, onCategoryClick }: ConvenioCar
             Como aproveitar
           </button>
           
-          {phoneToCall && (
+          {convenio.primaryContact === 'phone' && phoneToCall && (
             <a
               href={`tel:${phoneToCall.replace(/\D/g, '')}`}
               className="flex items-center justify-center bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 rounded transition-colors"
@@ -102,7 +102,7 @@ export function ConvenioCard({ convenio, onClick, onCategoryClick }: ConvenioCar
             </a>
           )}
 
-          {convenio.whatsapp && (
+          {convenio.primaryContact === 'whatsapp' && convenio.whatsapp && (
             <a
               href={`https://wa.me/${convenio.whatsapp.replace(/\D/g, '')}?text=${whatsappMessage}`}
               target="_blank"
@@ -112,6 +112,19 @@ export function ConvenioCard({ convenio, onClick, onCategoryClick }: ConvenioCar
               onClick={(e) => e.stopPropagation()}
             >
               <MessageCircle className="w-5 h-5" />
+            </a>
+          )}
+
+          {convenio.primaryContact === 'website' && convenio.website && (
+            <a
+              href={convenio.website}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 rounded transition-colors"
+              title="Acessar Site"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <Globe className="w-5 h-5" />
             </a>
           )}
 

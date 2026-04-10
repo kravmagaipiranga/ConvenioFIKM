@@ -45,9 +45,11 @@ export function Admin() {
     website: '',
     email: '',
     phone: '',
+    primaryContact: 'whatsapp' as 'whatsapp' | 'phone' | 'website',
     active: true,
     highlight: false,
-    imageUrl: ''
+    imageUrl: '',
+    imageFit: 'cover' as 'cover' | 'contain'
   };
 
   const [formData, setFormData] = useState(initialFormState);
@@ -150,9 +152,11 @@ export function Admin() {
         website: convenio.website || '',
         email: convenio.email || '',
         phone: convenio.phone || '',
+        primaryContact: convenio.primaryContact || 'whatsapp',
         active: convenio.active,
         highlight: convenio.highlight,
-        imageUrl: convenio.imageUrl || ''
+        imageUrl: convenio.imageUrl || '',
+        imageFit: convenio.imageFit || 'cover'
       });
       setEditingId(convenio.id!);
       setImagePreview(convenio.imageUrl || null);
@@ -824,6 +828,19 @@ export function Admin() {
                     {/* Contact */}
                     <div className="sm:col-span-2"><h4 className="font-medium text-gray-900 border-b pb-2">Contato</h4></div>
 
+                    <div className="sm:col-span-2">
+                      <label className="block text-sm font-medium text-gray-700">Contato Principal (Aparece no card)</label>
+                      <select 
+                        value={formData.primaryContact} 
+                        onChange={e => setFormData({...formData, primaryContact: e.target.value as 'whatsapp' | 'phone' | 'website'})} 
+                        className="mt-1 block w-full sm:w-1/2 border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-fikm-blue focus:border-fikm-blue sm:text-sm"
+                      >
+                        <option value="whatsapp">WhatsApp</option>
+                        <option value="website">Site</option>
+                        <option value="phone">Telefone</option>
+                      </select>
+                    </div>
+
                     <div>
                       <label className="block text-sm font-medium text-gray-700">WhatsApp (apenas números)</label>
                       <input type="text" placeholder="5511999999999" value={formData.whatsapp} onChange={e => setFormData({...formData, whatsapp: e.target.value})} className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-fikm-blue focus:border-fikm-blue sm:text-sm" />
@@ -844,20 +861,30 @@ export function Admin() {
                     {/* Image & Settings */}
                     <div className="sm:col-span-2"><h4 className="font-medium text-gray-900 border-b pb-2">Imagem e Configurações</h4></div>
 
-                    <div className="sm:col-span-2 flex items-center gap-6">
+                    <div className="sm:col-span-2 flex flex-col sm:flex-row items-start gap-6">
                       <div className="flex-shrink-0">
                         {imagePreview ? (
-                          <img src={imagePreview} alt="Preview" className="h-24 w-24 object-cover rounded border border-gray-200" />
+                          <img src={imagePreview} alt="Preview" className={`h-24 w-24 rounded border border-gray-200 ${formData.imageFit === 'contain' ? 'object-contain bg-gray-50' : 'object-cover'}`} />
                         ) : (
                           <div className="h-24 w-24 bg-gray-100 rounded border border-gray-200 flex items-center justify-center text-gray-400">
                             <ImageIcon className="w-8 h-8" />
                           </div>
                         )}
                       </div>
-                      <div className="flex-grow">
+                      <div className="flex-grow w-full">
                         <label className="block text-sm font-medium text-gray-700">Imagem do Convênio (1:1 recomendado)</label>
                         <input type="file" accept="image/jpeg, image/png, image/webp" onChange={handleImageChange} className="mt-2 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-fikm-blue hover:file:bg-blue-100" />
-                        <p className="mt-1 text-xs text-gray-500">JPG, PNG ou WebP até 5MB.</p>
+                        <p className="mt-1 text-xs text-gray-500 mb-4">JPG, PNG ou WebP até 5MB.</p>
+                        
+                        <label className="block text-sm font-medium text-gray-700">Enquadramento da Imagem</label>
+                        <select 
+                          value={formData.imageFit} 
+                          onChange={e => setFormData({...formData, imageFit: e.target.value as 'cover' | 'contain'})} 
+                          className="mt-1 block w-full sm:w-1/2 border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-fikm-blue focus:border-fikm-blue sm:text-sm"
+                        >
+                          <option value="cover">Preencher (Corta as bordas para preencher o espaço)</option>
+                          <option value="contain">Conter (Mostra a imagem inteira com fundo cinza)</option>
+                        </select>
                       </div>
                     </div>
 

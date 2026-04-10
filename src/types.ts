@@ -13,7 +13,9 @@ export interface Convenio {
   website?: string;
   email?: string;
   phone?: string;
+  primaryContact?: 'whatsapp' | 'phone' | 'website';
   imageUrl?: string;
+  imageFit?: 'cover' | 'contain';
   active: boolean;
   highlight: boolean;
   createdAt: any;
