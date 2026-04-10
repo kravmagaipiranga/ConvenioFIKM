@@ -42,6 +42,7 @@ export function ConvenioCard({ convenio, onClick, onCategoryClick }: ConvenioCar
             alt={convenio.companyName} 
             className={`w-full h-full ${convenio.imageFit === 'contain' ? 'object-contain p-4' : 'object-cover'}`}
             referrerPolicy="no-referrer"
+            loading="lazy"
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center bg-fikm-blue/5">

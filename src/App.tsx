@@ -23,17 +23,16 @@ export default function App() {
     return () => clearTimeout(timer);
   }, []);
 
-  if (isAppLoading) {
-    return <SplashScreen />;
-  }
-
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Layout><Public /></Layout>} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/admin" element={<Admin />} />
-      </Routes>
-    </Router>
+    <>
+      {isAppLoading && <SplashScreen />}
+      <Router>
+        <Routes>
+          <Route path="/" element={<Layout><Public /></Layout>} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/admin" element={<Admin />} />
+        </Routes>
+      </Router>
+    </>
   );
 }
