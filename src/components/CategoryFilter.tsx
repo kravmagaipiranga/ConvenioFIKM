@@ -26,9 +26,11 @@ export function CategoryFilter({ categories, selectedCategories, onCategoryChang
         {categories.map((category) => {
           const isSelected = selectedCategories.includes(category);
           return (
-            <label
+            <button
               key={category}
-              className="flex items-start gap-3 cursor-pointer group"
+              type="button"
+              onClick={() => onCategoryChange(category)}
+              className="flex items-start gap-3 w-full text-left cursor-pointer group"
             >
               <div className={`mt-0.5 flex-shrink-0 w-4 h-4 rounded border flex items-center justify-center transition-colors ${
                 isSelected ? 'bg-fikm-blue border-fikm-blue' : 'border-gray-300 group-hover:border-fikm-blue'
@@ -38,7 +40,7 @@ export function CategoryFilter({ categories, selectedCategories, onCategoryChang
               <span className={`text-sm leading-tight ${isSelected ? 'text-gray-900 font-medium' : 'text-gray-600 group-hover:text-gray-900'}`}>
                 {category}
               </span>
-            </label>
+            </button>
           );
         })}
         {categories.length === 0 && (

@@ -8,7 +8,7 @@ interface ConvenioCardProps {
   onCategoryClick?: (category: string) => void;
 }
 
-export function ConvenioCard({ convenio, onClick, onCategoryClick }: ConvenioCardProps) {
+export function ConvenioCard({ convenio, onClick, onCategoryClick }: ConvenioCardProps): React.JSX.Element {
   const whatsappMessage = encodeURIComponent('Olá! Sou aluno da FIKM e gostaria de saber mais sobre o convênio.');
 
   const handleShare = async (e: React.MouseEvent) => {

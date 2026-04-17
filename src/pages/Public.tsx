@@ -241,7 +241,13 @@ export function Public() {
                         </h2>
                         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                           {destacados.map((convenio) => (
-                            <ConvenioCard key={convenio.id} convenio={convenio} onClick={setSelectedConvenio} onCategoryClick={handleCategoryClick} />
+                            <div key={convenio.id || convenio.companyName}>
+                              <ConvenioCard 
+                                convenio={convenio} 
+                                onClick={(c) => setSelectedConvenio(c)} 
+                                onCategoryClick={handleCategoryClick} 
+                              />
+                            </div>
                           ))}
                         </div>
                       </div>
@@ -257,7 +263,13 @@ export function Public() {
                         )}
                         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                           {normais.map((convenio) => (
-                            <ConvenioCard key={convenio.id} convenio={convenio} onClick={setSelectedConvenio} onCategoryClick={handleCategoryClick} />
+                            <div key={convenio.id || convenio.companyName}>
+                              <ConvenioCard 
+                                convenio={convenio} 
+                                onClick={(c) => setSelectedConvenio(c)} 
+                                onCategoryClick={handleCategoryClick} 
+                              />
+                            </div>
                           ))}
                         </div>
                       </div>
